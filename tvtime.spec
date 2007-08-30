@@ -1,19 +1,20 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 3
-%define title       TvTime
-%define longtitle   High quality television application
+%define release %mkrel 4
 
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
 Summary:        High quality television application
 Group:          Video
-License:        GPL
+License:        GPLv2+ and LGPLv2+
 URL:            http://tvtime.net/
 Source0:        http://prdownloads.sourceforge.net/tvtime/%{name}-%{version}.tar.bz2
-Patch0:         %{name}-1.0.2.buildfix.patch
+Patch0:         tvtime-1.0.2.buildfix.patch
+# Build against system v4l / v4l2 headers rather than the obsolete
+# ones included, which cause the build to fail - AdamW 2007/08
+Patch1:		tvtime-1.0.2-v4lheaders.patch
 BuildRequires:  libx11-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
@@ -57,6 +58,7 @@ videophiles.
 %prep
 %setup -q
 %patch0 -p 1
+%patch1 -p1 -b .v4l
 
 %build
 %configure
@@ -66,23 +68,6 @@ videophiles.
 rm -fr %{buildroot}
 %makeinstall ROOT=%{buildroot}
 
-# icons
-install -D -m 644 docs/%{name}.48x48.png %{buildroot}%{_liconsdir}/%{name}.png 
-install -D -m 644 docs/%{name}.32x32.png %{buildroot}%{_iconsdir}/%{name}.png 
-install -D -m 644 docs/%{name}.16x16.png %{buildroot}%{_miconsdir}/%{name}.png
-# menu entry
-install -d -m 755 %{buildroot}%{_menudir}
-cat >%{buildroot}%{_menudir}/%{name} <<EOF
-?package(%{name}):\
-    command="%{_bindir}/%{name}"\
-    needs="X11"\
-    icon="%{name}.png"\
-    section="Multimedia/Video"\
-    title="%{title}"\
-    longtitle="%{longtitle}" \
-    xdg="true"
-EOF
-
 #xdg
 mv %{buildroot}%{_datadir}/applications/net-%{name}.desktop \
 %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -90,7 +75,8 @@ mv %{buildroot}%{_datadir}/applications/net-%{name}.desktop \
 desktop-file-install --vendor="" \
     --remove-category="Application" \
     --add-category="TV" \
-    --add-category="X-MandrivaLinux-Multimedia-Video" \
+    --add-category="Video" \
+    --add-category="X-MandrivaLinux-CrossDesktop" \
     --dir %{buildroot}%{_datadir}/applications \
     %{buildroot}%{_datadir}/applications/*
 
@@ -101,13 +87,15 @@ rm -fr %{buildroot}
 
 %post
 %{update_menus}
+%{update_icon_cache hicolor}
 
 %postun
 %{clean_menus}
+%{clean_icon_cache hicolor}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc ABOUT-NLS AUTHORS ChangeLog COPYING INSTALL NEWS README
+%doc AUTHORS ChangeLog NEWS README
 %doc data/COPYING.FreeMonoBold data/COPYING.tvtimeSansBold docs/html
 %{_bindir}/*
 %{_mandir}/man?/*
@@ -116,10 +104,6 @@ rm -fr %{buildroot}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/tvtime.xml
 %{_datadir}/%{name}
-%{_menudir}/%{name}
-%{_iconsdir}/%{name}.png
-%{_miconsdir}/%{name}.png
-%{_liconsdir}/%{name}.png
 # freedesktop stuff
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/hicolor/*/*/%{name}.png
