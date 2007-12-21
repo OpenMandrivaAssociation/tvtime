@@ -27,6 +27,7 @@ BuildRequires:	libsm-devel
 BuildRequires:	libxinerama-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	desktop-file-utils
+BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
 Tvtime is a high quality television application for use with video
