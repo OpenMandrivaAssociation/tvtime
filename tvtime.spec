@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 5
+%define release %mkrel 6
 
 Name:           %{name}
 Version:        %{version}
@@ -79,6 +79,7 @@ desktop-file-install --vendor="" \
     --remove-category="Application" \
     --add-category="TV" \
     --add-category="Video" \
+    --add-category="X-MandrivaLinux-CrossDesktop" \
     --dir %{buildroot}%{_datadir}/applications \
     %{buildroot}%{_datadir}/applications/*
 
