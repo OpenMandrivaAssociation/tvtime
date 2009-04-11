@@ -15,6 +15,7 @@ Patch0:         tvtime-1.0.2.buildfix.patch
 # Build against system v4l / v4l2 headers rather than the obsolete
 # ones included, which cause the build to fail - AdamW 2007/08
 Patch1:		tvtime-1.0.2-v4lheaders.patch
+Patch2:		tvtime-1.0.2-fix-str-fmt.patch
 BuildRequires:  libx11-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
@@ -57,11 +58,13 @@ videophiles.
 
 %prep
 %setup -q
-%patch0 -p 1
+%patch0 -p1
 %patch1 -p1 -b .v4l
+%patch2 -p0 -b .str
 
 %build
-%configure
+autoreconf -fi
+%configure2_5x
 %make
 
 %install
