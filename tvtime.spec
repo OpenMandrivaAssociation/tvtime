@@ -16,6 +16,8 @@ Patch0:         tvtime-1.0.2.buildfix.patch
 # ones included, which cause the build to fail - AdamW 2007/08
 Patch1:		tvtime-1.0.2-v4lheaders.patch
 Patch2:		tvtime-1.0.2-fix-str-fmt.patch
+#from fedora
+Patch3:		tvtime-1.0.2-localedef.patch
 BuildRequires:  libx11-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
@@ -61,9 +63,9 @@ videophiles.
 %patch0 -p1
 %patch1 -p1 -b .v4l
 %patch2 -p0 -b .str
+%patch3 -p1 -b .locale
 
 %build
-autoreconf -fi
 %configure2_5x
 %make
 
