@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 10
+%define release %mkrel 11
 
 Name:           %{name}
 Version:        %{version}
@@ -19,6 +19,8 @@ Patch2:		tvtime-1.0.2-fix-str-fmt.patch
 #from fedora
 Patch3:		tvtime-1.0.2-localedef.patch
 Patch4:		tvtime-1.0.2-videoinput.patch
+# http://sourceforge.net/tracker/?func=detail&atid=506989&aid=1634306&group_id=64301
+Patch5:     tvtime-1.0.2-savematte.patch
 BuildRequires:  libx11-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
@@ -66,6 +68,7 @@ videophiles.
 %patch2 -p0 -b .str
 %patch3 -p1 -b .locale
 %patch4 -p1 -b .videoinput
+%patch5 -p1 -b .savematte
 
 %build
 %configure2_5x
