@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 13
+%define release %mkrel 14
 
 Name:           %{name}
 Version:        %{version}
