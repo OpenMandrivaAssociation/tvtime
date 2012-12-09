@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 14
+%define release %mkrel 15
 
 Name:           %{name}
 Version:        %{version}
@@ -21,7 +21,9 @@ Patch3:		tvtime-1.0.2-localedef.patch
 Patch4:		tvtime-1.0.2-videoinput.patch
 # http://sourceforge.net/tracker/?func=detail&atid=506989&aid=1634306&group_id=64301
 Patch5:     tvtime-1.0.2-savematte.patch
+Patch6:		tvtime-1.0.2-png15.patch
 BuildRequires:  libx11-devel
+BuildRequires:  libxi-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
 BuildRequires:  freetype2-devel
@@ -33,7 +35,6 @@ BuildRequires:	libsm-devel
 BuildRequires:	libxinerama-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	desktop-file-utils
-BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
 Tvtime is a high quality television application for use with video
@@ -69,13 +70,13 @@ videophiles.
 %patch3 -p1 -b .locale
 %patch4 -p1 -b .videoinput
 %patch5 -p1 -b .savematte
+%patch6 -p1 -b .png15
 
 %build
 %configure2_5x
 %make
 
 %install
-rm -fr %{buildroot}
 %makeinstall ROOT=%{buildroot}
 
 #xdg
@@ -95,21 +96,6 @@ desktop-file-install --vendor="" \
 
 %find_lang %{name}
 
-%clean
-rm -fr %{buildroot}
-
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%{update_icon_cache hicolor}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%{clean_icon_cache hicolor}
-%endif
-
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc AUTHORS ChangeLog NEWS README
@@ -126,3 +112,139 @@ rm -fr %{buildroot}
 %{_iconsdir}/hicolor/*/*/%{name}.png
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}.xpm
+
+
+%changelog
+* Mon May 09 2011 Funda Wang <fwang@mandriva.org> 1.0.2-13mdv2011.0
++ Revision: 672757
+- fix header
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.2-12mdv2011.0
++ Revision: 608045
+- rebuild
+
+* Sun Mar 21 2010 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-11mdv2010.1
++ Revision: 526282
+- apply sf.net patch to save matte setting (fix #58298)
+
+* Wed Feb 10 2010 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-10mdv2010.1
++ Revision: 503844
+- add a patch from linux-uvc project to fix some issue with Philipps webcams (#57557)
+
+* Mon Aug 24 2009 Christophe Fergeau <cfergeau@mandriva.com> 1.0.2-9mdv2010.0
++ Revision: 420289
+- o add patch from fedora to fix build
+  o no need to run autoreconf
+
+* Sat Apr 11 2009 Funda Wang <fwang@mandriva.org> 1.0.2-8mdv2009.1
++ Revision: 366390
+- fix str fmt
+
+  + Antoine Ginies <aginies@mandriva.com>
+    - rebuild
+
+* Wed Jun 18 2008 Thierry Vignaud <tv@mandriva.org> 1.0.2-7mdv2009.0
++ Revision: 225892
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+
+* Thu Jan 17 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-6mdv2008.1
++ Revision: 154063
+- add X-MandrivaLinux-CrossDesktop catgeory to xdg menu (fix #36901)
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Tue Sep 25 2007 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-5mdv2008.0
++ Revision: 92927
+- fix icon specification in menu
+
+* Thu Aug 30 2007 Adam Williamson <awilliamson@mandriva.org> 1.0.2-4mdv2008.0
++ Revision: 76329
+- rebuild for 2008
+- don't package copying
+- add crossdesktop xdg category so it will show in top level of menus (it's the best tv app for all desktops)
+- drop old menu and icons
+- add patch1 (fix build by using system v4l / v4l2 headers rather than the obsolete included ones)
+- use Fedora license policy
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - Import tvtime
+
+
+
+* Wed Sep 06 2006 Christiaan Welvaart <cjw@daneel.dyndns.org> 1.0.2-3
+- add BuildRequires: libxv-devel libxtst-devel libice-devel libsm-devel
+                     libxinerama-devel libxxf86vm-devel desktop-file-utils
+
+* Fri Jul 28 2006 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-2mdv2007.0
+- fix compilation
+- xdg menu
+
+* Fri Nov 18 2005 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.2-1mdk
+- New release 1.0.2
+
+* Thu Sep 08 2005 Guillaume Rousse <guillomovitch@mandriva.org> 1.0.1-1mdk
+- New release 1.0.1
+- drop patch0
+
+* Sat Jul 30 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.99-2mdk
+- Fix Build with gcc4 ( patch from fedora )
+
+* Mon Apr 25 2005 Guillaume Rousse <guillomovitch@mandriva.org> 0.99-1mdk
+- New release 0.99
+- spec cleanup
+
+* Tue Nov 02 2004 Guillaume Rousse <guillomovitch@mandrake.org> 0.9.15-1mdk 
+- New release 0.9.15
+- updated description, additional filters no more useful
+
+* Fri Oct 29 2004 Guillaume Rousse <guillomovitch@mandrakesoft.com> 0.9.14-1mdk
+- New release 0.9.14
+
+* Thu Nov 27 2003 Guillaume Rousse <guillomovitch@mandrake.org> 0.9.12-2mdk
+- buildrequires libSDL-devel
+
+* Tue Nov 25 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.12-1mdk
+- new version
+
+* Mon Nov 17 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.11-1mdk
+- new version
+
+* Sat Sep 13 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.10-3mdk
+- included yet other missing doc files
+
+* Sat Sep 13 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.10-2mdk
+- dropped additional icons files, they are already present in tarball
+
+* Sat Sep 13 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.10-1mdk
+- 0.9.10
+- removed included DScaler libraries
+- updated description
+- fixed menu entry  
+- fixed URL
+- fixed doc files
+- used original icons
+- added freedesktop files
+
+* Fri Sep 05 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.9-1mdk
+- 0.9.9
+
+* Fri Jul 25 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 0.9.8.5-2mdk
+- rebuild
+- change summary macro to avoid possible conflicts if we were to build debug package
+
+* Sat Jun 21 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.8.5-1mdk
+- 0.9.8.5
+- icon
+
+* Fri May 09 2003 Laurent Culioli <laurent@pschit.net> 0.9.8.2-1mdk
+- initial release
