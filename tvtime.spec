@@ -31,7 +31,7 @@ BuildRequires:  libSDL-devel
 BuildRequires:	libxv-devel
 BuildRequires:	libxtst-devel
 BuildRequires:	libice-devel
-BuildRequires:	libsm-devel
+BuildRequires:	pkgconfig(sm)
 BuildRequires:	libxinerama-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	desktop-file-utils
