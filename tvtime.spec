@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.2
-%define release %mkrel 15
+%define release 16
 
 Name:           %{name}
 Version:        %{version}
@@ -26,7 +26,7 @@ BuildRequires:  libx11-devel
 BuildRequires:  libxi-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libpng-devel
-BuildRequires:  freetype2-devel
+BuildRequires:  freetype-devel
 BuildRequires:  libSDL-devel
 BuildRequires:	libxv-devel
 BuildRequires:	libxtst-devel
