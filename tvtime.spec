@@ -22,18 +22,18 @@ Patch4:		tvtime-1.0.2-videoinput.patch
 # http://sourceforge.net/tracker/?func=detail&atid=506989&aid=1634306&group_id=64301
 Patch5:     tvtime-1.0.2-savematte.patch
 Patch6:		tvtime-1.0.2-png15.patch
-BuildRequires:  libx11-devel
-BuildRequires:  libxi-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  libpng-devel
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libpng)
 BuildRequires:  freetype-devel
-BuildRequires:  libSDL-devel
-BuildRequires:	libxv-devel
-BuildRequires:	libxtst-devel
-BuildRequires:	libice-devel
+BuildRequires:  pkgconfig(sdl)
+BuildRequires:	pkgconfig(xv)
+BuildRequires:	pkgconfig(xtst)
+BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(sm)
-BuildRequires:	libxinerama-devel
-BuildRequires:	libxxf86vm-devel
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	desktop-file-utils
 
 %description
