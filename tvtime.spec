@@ -11,6 +11,7 @@ Group:          Video
 License:        GPLv2+ and LGPLv2+
 URL:            http://tvtime.net/
 Source0:        http://linuxtv.org/downloads/tvtime/%{name}-%{version}.tar.gz
+BuildRequires:	pkgconfig(alsa)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(libxml-2.0)
