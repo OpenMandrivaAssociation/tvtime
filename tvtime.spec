@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
-%define version 1.0.2
-%define release  25
+%define version 1.0.6
+%define release  1
 
 Name:           %{name}
 Version:        %{version}
@@ -10,18 +10,7 @@ Summary:        High quality television application
 Group:          Video
 License:        GPLv2+ and LGPLv2+
 URL:            http://tvtime.net/
-Source0:        http://prdownloads.sourceforge.net/tvtime/%{name}-%{version}.tar.bz2
-Patch0:         tvtime-1.0.2.buildfix.patch
-# Build against system v4l / v4l2 headers rather than the obsolete
-# ones included, which cause the build to fail - AdamW 2007/08
-Patch1:		tvtime-1.0.2-v4lheaders.patch
-Patch2:		tvtime-1.0.2-fix-str-fmt.patch
-#from fedora
-Patch3:		tvtime-1.0.2-localedef.patch
-Patch4:		tvtime-1.0.2-videoinput.patch
-# http://sourceforge.net/tracker/?func=detail&atid=506989&aid=1634306&group_id=64301
-Patch5:     tvtime-1.0.2-savematte.patch
-Patch6:		tvtime-1.0.2-png15.patch
+Source0:        http://linuxtv.org/downloads/tvtime/%{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -64,24 +53,15 @@ videophiles.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1 -b .v4l
-%patch2 -p0 -b .str
-%patch3 -p1 -b .locale
-%patch4 -p1 -b .videoinput
-%patch5 -p1 -b .savematte
-%patch6 -p1 -b .png15
 
 %build
-%configure2_5x
+export CC=gcc
+export CXX=g++
+%configure
 %make
 
 %install
 %makeinstall ROOT=%{buildroot}
-
-#xdg
-mv %{buildroot}%{_datadir}/applications/net-%{name}.desktop \
-%{buildroot}%{_datadir}/applications/%{name}.desktop
 
 perl -pi -e 's/tvtime.png/tvtime/' \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
