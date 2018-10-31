@@ -1,7 +1,7 @@
 %define name    tvtime
 %define Name    TVtime
 %define version 1.0.6
-%define release  2
+%define release  3
 
 Name:           %{name}
 Version:        %{version}
@@ -177,7 +177,7 @@ desktop-file-install --vendor="" \
 - New release 1.0.1
 - drop patch0
 
-* Sat Jul 30 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.99-2mdk
+* Sat Jul 30 2005 Nicolas LÃ©cureuil <neoclust@mandriva.org> 0.99-2mdk
 - Fix Build with gcc4 ( patch from fedora )
 
 * Mon Apr 25 2005 Guillaume Rousse <guillomovitch@mandriva.org> 0.99-1mdk
@@ -219,7 +219,7 @@ desktop-file-install --vendor="" \
 * Fri Sep 05 2003 Guillaume Rousse <guillomovitch@linux-mandrake.com> 0.9.9-1mdk
 - 0.9.9
 
-* Fri Jul 25 2003 Per Øyvind Karlsen <peroyvind@sintrax.net> 0.9.8.5-2mdk
+* Fri Jul 25 2003 Per Ã˜yvind Karlsen <peroyvind@sintrax.net> 0.9.8.5-2mdk
 - rebuild
 - change summary macro to avoid possible conflicts if we were to build debug package
 
