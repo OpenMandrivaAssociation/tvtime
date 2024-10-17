@@ -9,7 +9,7 @@ Release:        %{release}
 Summary:        High quality television application
 Group:          Video
 License:        GPLv2+ and LGPLv2+
-URL:            http://tvtime.net/
+URL:            https://tvtime.net/
 Source0:        http://linuxtv.org/downloads/tvtime/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:  pkgconfig(x11)
